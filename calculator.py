@@ -1,5 +1,4 @@
-def prompt(message):
-    print(f"==> {message}")
+from calculator_messages import prompt, messages
 
 def invalid_number(number_str):
     try:
@@ -12,27 +11,27 @@ def invalid_number(number_str):
 # Go again?
 while True:
 
-    prompt('Welcome to Calculator!')
+    prompt(messages['welcome'])
 
-    prompt("What's the first number?")
+    prompt(messages["first_number"])
     number1 = input()
 
     while invalid_number(number1):
-        prompt("Hmm... that doesn't look like a valid number.")
+        prompt(messages["invalid_number"])
         number1 = input()
 
-    prompt("What's the second number?")
+    prompt(messages["second_number"])
     number2 = input()
 
     while invalid_number(number2):
-        prompt("Hmm... that doesn't look like a valid number.")
+        prompt(messages["invalid_number"])
         number2 = input()
 
-    prompt("What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide")
+    prompt(messages["operation"])
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        prompt("You must choose 1, 2, 3, or 4")
+        prompt(messages["invalid_operation"])
         operation = input()
 
     match operation:
@@ -45,12 +44,12 @@ while True:
         case "4":
             output = int(number1) / int(number2)
 
-    prompt(f"The result is {output}")
+    prompt(messages["result"])
 
     # ask for two numbers
     # ask for operation
     # perform operation and display results
-    prompt('Would you like to perform another operation? (y/n) ')
+    prompt(messages["another_operation"])
     answer = input()
     if answer and answer[0].lower() != 'y':
         break
