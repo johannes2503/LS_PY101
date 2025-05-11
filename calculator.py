@@ -1,13 +1,13 @@
 from calculator_messages import prompt, messages
 def invalid_number(number_str):
     try:
-        int(number_str)
+        float(number_str)
     except ValueError:
         return True
 
     return False
-LANGUAGE = "es"
-# Go again?
+LANGUAGE = "en"
+
 while True:
         
     prompt(messages('welcome', LANGUAGE))
@@ -23,25 +23,25 @@ while True:
     number2 = input()
 
     while invalid_number(number2):
-        prompt(messages(("invalid_number", LANGUAGE)))
+        prompt(messages(('invalid_number', LANGUAGE)))
         number2 = input()
 
     prompt(messages('operation', LANGUAGE))
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        prompt(messages(("invalid_operation", LANGUAGE)))
+        prompt(messages('invalid_operation', LANGUAGE))
         operation = input()
 
     match operation:
         case "1":
-            output = int(number1) + int(number2)
+            output = float(number1) + float(number2)
         case "2":
-            output = int(number1) - int(number2)
+            output = float(number1) - float(number2)
         case "3":
-            output = int(number1) * int(number2)
+            output = float(number1) * float(number2)
         case "4":
-            output = int(number1) / int(number2)
+            output = float(number1) / float(number2)
 
     prompt(messages('result', LANGUAGE))
 
