@@ -1,5 +1,4 @@
 from calculator_messages import prompt, messages
-
 def invalid_number(number_str):
     try:
         int(number_str)
@@ -7,31 +6,31 @@ def invalid_number(number_str):
         return True
 
     return False
-
+LANGUAGE = "es"
 # Go again?
 while True:
+        
+    prompt(messages('welcome', LANGUAGE))
 
-    prompt(messages['welcome'])
-
-    prompt(messages["first_number"])
+    prompt(messages('first_number', LANGUAGE))
     number1 = input()
 
     while invalid_number(number1):
-        prompt(messages["invalid_number"])
+        prompt(messages(('invalid_number', LANGUAGE)))
         number1 = input()
 
-    prompt(messages["second_number"])
+    prompt(messages('second_number', LANGUAGE))
     number2 = input()
 
     while invalid_number(number2):
-        prompt(messages["invalid_number"])
+        prompt(messages(("invalid_number", LANGUAGE)))
         number2 = input()
 
-    prompt(messages["operation"])
+    prompt(messages('operation', LANGUAGE))
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        prompt(messages["invalid_operation"])
+        prompt(messages(("invalid_operation", LANGUAGE)))
         operation = input()
 
     match operation:
@@ -44,12 +43,10 @@ while True:
         case "4":
             output = int(number1) / int(number2)
 
-    prompt(messages["result"])
+    prompt(messages('result', LANGUAGE))
 
-    # ask for two numbers
-    # ask for operation
-    # perform operation and display results
-    prompt(messages["another_operation"])
-    answer = input()
-    if answer and answer[0].lower() != 'y':
+    prompt(output)
+    prompt(messages('another_operation', LANGUAGE))
+    another_operation = input()
+    if another_operation.lower() != "y" and another_operation.lower() != "s":
         break
