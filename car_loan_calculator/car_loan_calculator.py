@@ -33,3 +33,7 @@ print("Please enter loan duration in years:(The max is 8 years)")
 loan_duration = input()
 print("Please enter interest rate:")
 loan_interest = input()
+
+
+def car_loan_calc(loan_amount, loan_duration, loan_interst):
+    
