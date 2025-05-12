@@ -28,12 +28,16 @@ print("----------------------------------")
 print('Welcome to JD Car Loan Calculator!')
 print("----------------------------------")
 print("Please enter the loan amount you need in $:")
-loan_amount = input()
+loan_amount = int(input())
 print("Please enter loan duration in years:(The max is 8 years)")
-loan_duration = input()
-print("Please enter interest rate:")
-loan_interest = input()
+loan_duration = int(input())
+print("Please enter interest rate in %:")
+loan_interest = float(input())
 
 
-def car_loan_calc(loan_amount, loan_duration, loan_interst):
-    
+def car_loan_calc(loan_amount, loan_duration, loan_interest):
+    loan_duration_months = loan_duration / 12
+    #return loan_amount_months
+    print(loan_duration_months)
+
+car_loan_calc(loan_amount, loan_duration, loan_interest)
