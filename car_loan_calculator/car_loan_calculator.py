@@ -23,8 +23,8 @@ def invalid_number(num_str):
     This function checks if the input from the user is valid
     """
     try:
-       number = float(num_str)
-       if number <= 0:
+        number = float(num_str)
+        if number <= 0:
             raise ValueError()
     except ValueError:
         return True
@@ -49,11 +49,16 @@ def calc_interest_apr(loan_interest):
     output = float(loan_interest) / 100 / 12
     return output
 
-### USER INPUT AND CALCULATION
+### USER INPUT
 
+prompt(MESSAGES['banner'])
 prompt(MESSAGES['Welcome'])
+prompt(MESSAGES['banner'])
 
-prompt(MESSAGES['loan_amount'])
+prompt(MESSAGES['name'])
+name = input()
+
+prompt(MESSAGES['loan_amount'] + f" {name}")
 amount = input()
 while invalid_number(amount):
     prompt(MESSAGES['invalid_input'])
@@ -69,14 +74,17 @@ while invalid_number(interest):
     interest = input()
 interest_result = calc_interest_apr(interest)
 
+### CALCULATION OF MONTHLY PAYMENT
+
 if interest_result == 0:
     monthly_payment = amount_result / duration_result
 else:
     monthly_payment = amount_result * \
         (interest_result / (1 - (1 + interest_result) ** -duration_result))
 
-# Show results
-print("\n== Loan Summary ==")
+### SHOW RESULT
+
+print(f"\n== {name}'s Loan Summary ==")
 print(f"Loan Amount: ${amount_result:,.2f}")
 print(f"Annual Interest Rate (APR): {interest}%")
 print(f"Loan Duration: {int(duration_result)} months")
