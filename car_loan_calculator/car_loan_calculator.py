@@ -45,21 +45,21 @@ def invalid_duration(loan_duration):
         loan_duration = input()
     match (loan_duration):
         case "1":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "2":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "3":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "4":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "5":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "6":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "7":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
         case "8":
-            output = int(loan_duration) * int(12)
+            output = float(loan_duration) * float(12)
     return output
 
 def validate(number):
@@ -67,9 +67,9 @@ def validate(number):
         prompt('invalid number')
         number = input()
 
-def calc_apr(loan_interest):
-    output = float(loan_interest)/ float(12)
-    return round(output, 2)
+def calc_interest_apr(loan_interest):
+    output = float(loan_interest) / 100 / 12
+    return output
     
 
 
@@ -78,19 +78,21 @@ prompt(MESSAGES['Welcome'])
 
 
 prompt(MESSAGES['loan_amount'])
-amount = input()
+amount = input().strip()
 validate(amount)
+amount_result = float(amount)
 
 prompt(MESSAGES['loan_duration'])
 duration = input()
-duration_result = invalid_duration(duration)
+duration_result = float(invalid_duration(duration))
 
 
 prompt(MESSAGES['loan_interest'])
-interest = input()
+interest = input().strip()
 validate(interest)
-interest_result = calc_apr(interest)
+interest_result = calc_interest_apr(interest)
 
+m = amount_result * (interest_result / (1 - (1 + interest_result) ** -duration_result))
 
-
-
+print(amount_result, duration_result, interest_result)
+print(m)
