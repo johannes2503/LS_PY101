@@ -4,19 +4,21 @@
 
 - Loan amount
   - Validate input
-  - Only whole number
+  - Only decimal numbers
 - Loan duration
   - Valdate input
-  - Only whole number
+  - Only decimal numbers
 - Loan interest
 
   - Validate input
-  - Can be decimal number
+  - Only decimal number
+
+### Loan calculation
 
 - Calculate loan payment per month
 
   - Divide interest by months (12)
-  - Divide loan duration by months (12)
+  - Divide loan duration by months
   - Calculate loan payment per month
   - Return the amount in $
 
@@ -35,7 +37,7 @@ START
 - Validate inputs
 
   - READ loan_amount
-  - WHILE loan_amount != int
+  - WHILE loan_amount != float
 
     - PRINT "incorrect input"
     - SET loan_amount = GET input from user
@@ -48,5 +50,8 @@ START
 
   - READ loan_interrest
   - WHILE loan_amount != float
+
     - PRINT "incorrect input"
     - SET loan_amount = GET input from user
+
+  -

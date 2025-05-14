@@ -23,21 +23,74 @@ From the above, you'll need to calculate the following two things:
 
 
 """
+import json
 
-print("----------------------------------")
-print('Welcome to JD Car Loan Calculator!')
-print("----------------------------------")
-print("Please enter the loan amount you need in $:")
-loan_amount = int(input())
-print("Please enter loan duration in years:(The max is 8 years)")
-loan_duration = int(input())
-print("Please enter interest rate in %:")
-loan_interest = float(input())
+# Load the messages from the JSON file
+with open('messages.json', encoding="utf-8") as file:
+    MESSAGES = json.load(file)
+
+def prompt(message):
+    print(f"==> {message}")
+
+def invalid_number(number):
+    try:
+        float(number)
+    except ValueError:
+        return True
+    return False
+
+def invalid_duration(loan_duration):
+    while loan_duration not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
+        prompt('invalid_operation')
+        loan_duration = input()
+    match (loan_duration):
+        case "1":
+            output = int(loan_duration) * int(12)
+        case "2":
+            output = int(loan_duration) * int(12)
+        case "3":
+            output = int(loan_duration) * int(12)
+        case "4":
+            output = int(loan_duration) * int(12)
+        case "5":
+            output = int(loan_duration) * int(12)
+        case "6":
+            output = int(loan_duration) * int(12)
+        case "7":
+            output = int(loan_duration) * int(12)
+        case "8":
+            output = int(loan_duration) * int(12)
+    return output
+
+def validate(number):
+    while invalid_number(number):
+        prompt('invalid number')
+        number = input()
+
+def calc_apr(loan_interest):
+    output = float(loan_interest)/ float(12)
+    return round(output, 2)
+    
 
 
-def car_loan_calc(loan_amount, loan_duration, loan_interest):
-    loan_duration_months = loan_duration / 12
-    #return loan_amount_months
-    print(loan_duration_months)
 
-car_loan_calc(loan_amount, loan_duration, loan_interest)
+prompt(MESSAGES['Welcome'])
+
+
+prompt(MESSAGES['loan_amount'])
+amount = input()
+validate(amount)
+
+prompt(MESSAGES['loan_duration'])
+duration = input()
+duration_result = invalid_duration(duration)
+
+
+prompt(MESSAGES['loan_interest'])
+interest = input()
+validate(interest)
+interest_result = calc_apr(interest)
+
+
+
+
