@@ -1,26 +1,7 @@
 """
 Car Loan Calculator
-This script calculates the monthly payment for a car \n
+This script calculates the monthly payment for a car
 loan based on the loan amount, interest rate, and loan duration.
-
-You'll need three pieces of information:
-
-    the loan amount
-    the Annual Percentage Rate (APR)
-    the loan duration
-
-From the above, you'll need to calculate the following two things:
-
-    monthly interest rate (APR / 12)
-    loan duration in months
-
-    m = p * (j / (1 - (1 + j) ** (-n)))
-
-    m = monthly payment
-    p = loan amount
-    j = monthly interest rate
-    n = loan duration in months
-
 
 """
 import json
@@ -32,16 +13,27 @@ with open('messages.json', encoding="utf-8") as file:
 ### DECLARING FUNCTIONS
 
 def prompt(message):
+    """
+    This function is for prompting the input from the user
+    """
     print(f"==> {message}")
 
-def get_float_number(number):
+def invalid_number(num_str):
+    """
+    This function checks if the input from the user is valid
+    """
     try:
-        float(number)
+       number = float(num_str)
+       if number <= 0:
+            raise ValueError()
     except ValueError:
         return True
     return False
 
 def get_duration():
+    """
+    This function calculates the duration af the loan
+    """
     while True:
         prompt(MESSAGES["loan_duration"])
         years = input().strip()
@@ -49,37 +41,43 @@ def get_duration():
             return float(years) * 12
         print("Invalid choice. Please enter a number between 1 and 8.")
 
-def validate(number):
-    while get_float_number(number):
-        prompt('invalid number')
-        number = input()
 
 def calc_interest_apr(loan_interest):
+    """
+    This function calculates the monthly interest rate from the annual APR.
+    """
     output = float(loan_interest) / 100 / 12
     return output
-    
+
 ### USER INPUT AND CALCULATION
 
 prompt(MESSAGES['Welcome'])
 
-
 prompt(MESSAGES['loan_amount'])
-amount = input().strip()
-validate(amount)
+amount = input()
+while invalid_number(amount):
+    prompt(MESSAGES['invalid_input'])
+    amount = input()
 amount_result = float(amount)
 
 duration_result = float(get_duration())
 
 prompt(MESSAGES['loan_interest'])
-interest = input().strip()
-validate(interest)
+interest = input()
+while invalid_number(interest):
+    prompt(MESSAGES['invalid_input'])
+    interest = input()
 interest_result = calc_interest_apr(interest)
 
-monthly_payment = amount_result * (interest_result / (1 - (1 + interest_result) ** -duration_result))
+if interest_result == 0:
+    monthly_payment = amount_result / duration_result
+else:
+    monthly_payment = amount_result * \
+        (interest_result / (1 - (1 + interest_result) ** -duration_result))
 
 # Show results
 print("\n== Loan Summary ==")
 print(f"Loan Amount: ${amount_result:,.2f}")
 print(f"Annual Interest Rate (APR): {interest}%")
 print(f"Loan Duration: {int(duration_result)} months")
-print(f"Monthly Payment: ${monthly_payment:,.2f}")
+print(f"Your monthly Payment: ${monthly_payment:,.2f}")

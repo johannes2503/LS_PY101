@@ -1,6 +1,7 @@
 {
   "Welcome": "Welcome to JD car loan calculator!",
-  "loan_amount": "Enter the loan amount",
-  "loan_duration": "Enter duration of loan",
-  "loan_interest": "Enter the interest of the loan"
+  "loan_amount": "Please enter the loan amount",
+  "loan_duration": "Please enter duration of loan",
+  "loan_interest": "Please enter the interest rate",
+  "invalid_input": "You must enter a valid number!\n(Example: 5 for 5%)"
 }
