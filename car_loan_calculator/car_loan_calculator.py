@@ -29,41 +29,28 @@ import json
 with open('messages.json', encoding="utf-8") as file:
     MESSAGES = json.load(file)
 
+### DECLARING FUNCTIONS
+
 def prompt(message):
     print(f"==> {message}")
 
-def invalid_number(number):
+def get_float_number(number):
     try:
         float(number)
     except ValueError:
         return True
     return False
 
-def invalid_duration(loan_duration):
-    while loan_duration not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
-        prompt('invalid_operation')
-        loan_duration = input()
-    match (loan_duration):
-        case "1":
-            output = float(loan_duration) * float(12)
-        case "2":
-            output = float(loan_duration) * float(12)
-        case "3":
-            output = float(loan_duration) * float(12)
-        case "4":
-            output = float(loan_duration) * float(12)
-        case "5":
-            output = float(loan_duration) * float(12)
-        case "6":
-            output = float(loan_duration) * float(12)
-        case "7":
-            output = float(loan_duration) * float(12)
-        case "8":
-            output = float(loan_duration) * float(12)
-    return output
+def get_duration():
+    while True:
+        prompt(MESSAGES["loan_duration"])
+        years = input().strip()
+        if years in [str(i) for i in range(1, 9)]:
+            return float(years) * 12
+        print("Invalid choice. Please enter a number between 1 and 8.")
 
 def validate(number):
-    while invalid_number(number):
+    while get_float_number(number):
         prompt('invalid number')
         number = input()
 
@@ -71,8 +58,7 @@ def calc_interest_apr(loan_interest):
     output = float(loan_interest) / 100 / 12
     return output
     
-
-
+### USER INPUT AND CALCULATION
 
 prompt(MESSAGES['Welcome'])
 
@@ -82,17 +68,18 @@ amount = input().strip()
 validate(amount)
 amount_result = float(amount)
 
-prompt(MESSAGES['loan_duration'])
-duration = input()
-duration_result = float(invalid_duration(duration))
-
+duration_result = float(get_duration())
 
 prompt(MESSAGES['loan_interest'])
 interest = input().strip()
 validate(interest)
 interest_result = calc_interest_apr(interest)
 
-m = amount_result * (interest_result / (1 - (1 + interest_result) ** -duration_result))
+monthly_payment = amount_result * (interest_result / (1 - (1 + interest_result) ** -duration_result))
 
-print(amount_result, duration_result, interest_result)
-print(m)
+# Show results
+print("\n== Loan Summary ==")
+print(f"Loan Amount: ${amount_result:,.2f}")
+print(f"Annual Interest Rate (APR): {interest}%")
+print(f"Loan Duration: {int(duration_result)} months")
+print(f"Monthly Payment: ${monthly_payment:,.2f}")
