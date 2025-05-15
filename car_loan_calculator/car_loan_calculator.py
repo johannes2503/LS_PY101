@@ -5,10 +5,10 @@ loan based on the loan amount, interest rate, and loan duration.
 
 x Consider allowing more flexibility in loan duration input. For example, someone might want a 4.5-year loan (54 months).
 x It would be nice to give the user an option to perform another calculation without exiting the program.
-You could consider clearing the screen between operations to keep the interface clean.
-The loan duration prompt says "Please enter duration of loan on years" - a small correction to "in years" would be more natural.
+x You could consider clearing the screen between operations to keep the interface clean.
+x The loan duration prompt says "Please enter duration of loan on years" - a small correction to "in years" would be more natural.
 
-You could extract the input gathering for loan amount and interest rate into functions similar to how you did with get_duration(). This would make your main code even more concise and readable.
+- You could extract the input gathering for loan amount and interest rate into functions similar to how you did with get_duration(). This would make your main code even more concise and readable.
 The loan calculation section could be moved into its own function (e.g., calculate_monthly_payment(principal, rate, duration)).
 Similarly, the result display section could be extracted into a function like display_loan_summary().
 Consider using constants for values like the maximum loan duration (8 years) to make future modifications easier.
@@ -25,6 +25,9 @@ with open('messages.json', encoding="utf-8") as file:
 ### DECLARING FUNCTIONS
 
 def clear_console():
+    """
+    This function clears the console between prompts
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def prompt(message):
@@ -63,8 +66,8 @@ def calc_interest_apr(loan_interest):
     """
     This function calculates the monthly interest rate from the annual APR.
     """
-    output = float(loan_interest) / 100 / 12
-    return output
+    monthly_rate = float(loan_interest) / 100 / 12
+    return monthly_rate
 
 ### USER INPUT
 
@@ -96,6 +99,7 @@ while True:
         interest = input()
     interest_result = calc_interest_apr(interest)
     clear_console()
+
     ### CALCULATION OF MONTHLY PAYMENT
 
     if interest_result == 0:
