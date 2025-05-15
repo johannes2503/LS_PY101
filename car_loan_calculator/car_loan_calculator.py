@@ -3,8 +3,8 @@ Car Loan Calculator
 This script calculates the monthly payment for a car
 loan based on the loan amount, interest rate, and loan duration.
 
-Consider allowing more flexibility in loan duration input. For example, someone might want a 4.5-year loan (54 months).
-It would be nice to give the user an option to perform another calculation without exiting the program.
+x Consider allowing more flexibility in loan duration input. For example, someone might want a 4.5-year loan (54 months).
+x It would be nice to give the user an option to perform another calculation without exiting the program.
 You could consider clearing the screen between operations to keep the interface clean.
 The loan duration prompt says "Please enter duration of loan on years" - a small correction to "in years" would be more natural.
 
@@ -16,12 +16,16 @@ In your calc_interest_apr() function, the variable name output is a bit generic.
 
 """
 import json
+import os
 
 # Load the messages from the JSON file
 with open('messages.json', encoding="utf-8") as file:
     MESSAGES = json.load(file)
 
 ### DECLARING FUNCTIONS
+
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def prompt(message):
     """
@@ -64,41 +68,53 @@ def calc_interest_apr(loan_interest):
 
 ### USER INPUT
 
+
 prompt(MESSAGES['banner'])
 prompt(MESSAGES['Welcome'])
 prompt(MESSAGES['banner'])
 
 prompt(MESSAGES['name'])
 name = input()
+clear_console()
 
-prompt(MESSAGES['loan_amount'] + f" {name}")
-amount = input()
-while invalid_number(amount):
-    prompt(MESSAGES['invalid_input'])
+while True:
+    prompt(MESSAGES['loan_amount'] + f" {name}")
     amount = input()
-amount_result = float(amount)
+    while invalid_number(amount):
+        prompt(MESSAGES['invalid_input'])
+        amount = input()
+    amount_result = float(amount)
+    clear_console()
 
-duration_result = get_duration()
+    duration_result = get_duration()
+    clear_console()
 
-prompt(MESSAGES['loan_interest'])
-interest = input()
-while invalid_number(interest):
-    prompt(MESSAGES['invalid_input'])
+    prompt(MESSAGES['loan_interest'])
     interest = input()
-interest_result = calc_interest_apr(interest)
+    while invalid_number(interest):
+        prompt(MESSAGES['invalid_input'])
+        interest = input()
+    interest_result = calc_interest_apr(interest)
+    clear_console()
+    ### CALCULATION OF MONTHLY PAYMENT
 
-### CALCULATION OF MONTHLY PAYMENT
+    if interest_result == 0:
+        monthly_payment = amount_result / duration_result
+    else:
+        monthly_payment = amount_result * \
+            (interest_result / (1 - (1 + interest_result) ** -duration_result))
 
-if interest_result == 0:
-    monthly_payment = amount_result / duration_result
-else:
-    monthly_payment = amount_result * \
-        (interest_result / (1 - (1 + interest_result) ** -duration_result))
+    ### SHOW RESULT
 
-### SHOW RESULT
+    print(f"\n== {name}'s Loan Summary ==")
+    print(f"Loan Amount: ${amount_result:,.2f}")
+    print(f"Annual Interest Rate (APR): {interest}%")
+    print(f"Loan Duration: {int(duration_result)} months")
+    print(f"Your monthly Payment: ${monthly_payment:,.2f}")
 
-print(f"\n== {name}'s Loan Summary ==")
-print(f"Loan Amount: ${amount_result:,.2f}")
-print(f"Annual Interest Rate (APR): {interest}%")
-print(f"Loan Duration: {int(duration_result)} months")
-print(f"Your monthly Payment: ${monthly_payment:,.2f}")
+    prompt(MESSAGES['banner'])
+    prompt(MESSAGES['another_calc'] + f" {name} ?")
+    another_calculation = input()
+    if another_calculation.lower() != "y":
+        break
+    clear_console()
