@@ -14,7 +14,7 @@ with open('messages.json', encoding="utf-8") as file:
 
 def prompt(message):
     """
-    This function is for prompting the input from the user
+    This function is for promting a message to the user
     """
     print(f"==> {message}")
 
