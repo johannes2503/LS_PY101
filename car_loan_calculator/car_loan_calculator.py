@@ -3,6 +3,17 @@ Car Loan Calculator
 This script calculates the monthly payment for a car
 loan based on the loan amount, interest rate, and loan duration.
 
+Consider allowing more flexibility in loan duration input. For example, someone might want a 4.5-year loan (54 months).
+It would be nice to give the user an option to perform another calculation without exiting the program.
+You could consider clearing the screen between operations to keep the interface clean.
+The loan duration prompt says "Please enter duration of loan on years" - a small correction to "in years" would be more natural.
+
+You could extract the input gathering for loan amount and interest rate into functions similar to how you did with get_duration(). This would make your main code even more concise and readable.
+The loan calculation section could be moved into its own function (e.g., calculate_monthly_payment(principal, rate, duration)).
+Similarly, the result display section could be extracted into a function like display_loan_summary().
+Consider using constants for values like the maximum loan duration (8 years) to make future modifications easier.
+In your calc_interest_apr() function, the variable name output is a bit generic. Something like monthly_rate would be more descriptive.
+
 """
 import json
 
@@ -14,7 +25,7 @@ with open('messages.json', encoding="utf-8") as file:
 
 def prompt(message):
     """
-    This function is for promting a message to the user
+    This function is for promting a messages to the user
     """
     print(f"==> {message}")
 
@@ -35,11 +46,13 @@ def get_duration():
     This function calculates the duration af the loan
     """
     while True:
-        prompt(MESSAGES["loan_duration"])
-        years = input().strip()
-        if years in [str(i) for i in range(1, 9)]:
-            return float(years) * 12
-        print("Invalid choice. Please enter a number between 1 and 8.")
+        try:
+            prompt(MESSAGES["loan_duration"])
+            years = float(input())
+            if 0.1 <= years <= 8:
+                return years * 12
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 8.")
 
 
 def calc_interest_apr(loan_interest):
@@ -65,7 +78,7 @@ while invalid_number(amount):
     amount = input()
 amount_result = float(amount)
 
-duration_result = float(get_duration())
+duration_result = get_duration()
 
 prompt(MESSAGES['loan_interest'])
 interest = input()
