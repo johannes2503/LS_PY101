@@ -1,0 +1,10 @@
+{
+  "Welcome": "Welcome to my awesome car loan calculator!",
+  "banner": "------------------------------------------",
+  "name": "What is your name?",
+  "loan_amount": "Please enter the loan amount in $",
+  "loan_duration": "Please enter duration of loan in years",
+  "loan_interest": "Please enter the interest rate in %",
+  "invalid_input": "Please enter a valid number!)",
+  "another_calc": "Would you like to do another calculaction? (y/n)"
+}
