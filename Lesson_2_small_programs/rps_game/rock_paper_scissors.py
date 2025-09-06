@@ -1,7 +1,7 @@
 
 import random
 
-VALID_CHOICES = ["rock", "paper", "scissors"]
+VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"]
 
 def prompt(message):
     print(f"==> {message}")
@@ -11,7 +11,9 @@ def display_winner(player, computer):
 
     if ((player == "rock" and computer == "scissors") or
         (player == "paper" and computer == "rock") or
-        (player == "scissors" and computer == "paper")):
+        (player == "scissors" and computer == "paper") or
+        (player == "lizard" and computer == "paper") or
+        (player == "spock" and computer == "scissors")):
         prompt("You win!")
     elif ((player == "rock" and computer == "paper") or
           (player == "paper" and computer == "scissors") or
