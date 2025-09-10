@@ -1,15 +1,21 @@
-
+"""
+Rock Paper Scissors Lizard Spock Game"""
 import random
 
 VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
 
+# Helper methods
+
 def prompt(message):
+
+    """Display messages to user"""
+
     print(f"==> {message}")
 
-def display_choices(player, computer):
-    prompt(f"You chose: {player}; Computer chose: {computer}")
-
 def display_winner(player, computer):
+
+    """Display winner of the game"""
+
     if player_wins(player, computer):
         print('You win!')
     elif player == computer:
@@ -18,6 +24,9 @@ def display_winner(player, computer):
         print("Computer wins!")
 
 def display_choices(player, computer):
+
+    """Display choices of player and computer"""
+
     choices_dict = {
         'r': 'Rock',
         'p': 'Paper',
@@ -28,38 +37,41 @@ def display_choices(player, computer):
     prompt(f"You chose: {choices_dict.get(player, 'Invalid choice')}; Computer chose: {choices_dict.get(computer, 'Invalid choice')}")
 
 
-def player_wins(player_choice, computer_choice):
+def player_wins(player_choice, comp_choice):
+
+    """Determine if player or computer wins"""
+    
     if (
-        (player_choice == 'r' and computer_choice == 'sc') or
-        (player_choice == 'r' and computer_choice == 'l') or
-        (player_choice == 'p' and computer_choice == 'r') or
-        (player_choice == 'p' and computer_choice == 'sp') or
-        (player_choice == 'sc' and computer_choice == 'p') or
-        (player_choice == 'sc' and computer_choice == 'l') or
-        (player_choice == 'l' and computer_choice == 'p') or
-        (player_choice == 'l' and computer_choice == 'sp') or
-        (player_choice == 'sp' and computer_choice == 'r') or
-        (player_choice == 'sp' and computer_choice == 'sc')
+        (player_choice == 'r' and comp_choice == 'sc') or
+        (player_choice == 'r' and comp_choice == 'l') or
+        (player_choice == 'p' and comp_choice == 'r') or
+        (player_choice == 'p' and comp_choice == 'sp') or
+        (player_choice == 'sc' and comp_choice == 'p') or
+        (player_choice == 'sc' and comp_choice == 'l') or
+        (player_choice == 'l' and comp_choice == 'p') or
+        (player_choice == 'l' and comp_choice == 'sp') or
+        (player_choice == 'sp' and comp_choice == 'r') or
+        (player_choice == 'sp' and comp_choice == 'sc')
     ):
         return True
     else:
         return False
-    
+
+# Main game loop
+
 while True:
     prompt("Choose between: Rock(r), Paper(p), Scissors(sc), Lizard(l), Spock(sp)")
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
     choice = input()
- 
-    
+
     while choice not in VALID_CHOICES:
         prompt("That's not a valid choice")
         choice = input()
-        
 
     computer_choice = random.choice(VALID_CHOICES)
 
     display_choices(choice, computer_choice)
-    
+
     display_winner(choice, computer_choice)
 
     while True:
@@ -68,8 +80,7 @@ while True:
 
         if answer.startswith('n') or answer.startswith('y'):
             break
-        else:
-            prompt("That's not a valid choice")
+        prompt("That's not a valid choice")
 
     if answer[0] == 'n':
         break
