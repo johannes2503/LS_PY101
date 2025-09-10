@@ -6,29 +6,8 @@ VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
 def prompt(message):
     print(f"==> {message}")
 
-def display_player_choice(choice):
-    if 'r' in choice:
-        prompt('You chose: Rock')
-    elif 'sp' in choice:
-         prompt('You chose: Spock')
-    elif 'sc' in choice:
-         prompt('You chose: Scissors')
-    elif 'l' in choice:
-         prompt('You chose: Lizard')
-    elif 'p' in choice:
-         prompt('You chose: Paper')
-
-def display_computer_choice(computer_choice):
-    if 'r' in computer_choice:
-        prompt('Computer chose: Rock')
-    elif 'p' in computer_choice:
-         prompt('Computer chose: Paper')
-    elif 'sc' in computer_choice:
-         prompt('Computer chose: Scissors')
-    elif 'l' in computer_choice:
-         prompt('Computer chose: Lizard')
-    elif 'sp' in computer_choice:
-         prompt('Computer chose: Spock')
+def display_choices(player, computer):
+    prompt(f"You chose: {player}; Computer chose: {computer}")
 
 def display_winner(player, computer):
     if player_wins(player, computer):
@@ -37,6 +16,17 @@ def display_winner(player, computer):
         print("It's a tie!")
     else:
         print("Computer wins!")
+
+def display_choices(player, computer):
+    choices_dict = {
+        'r': 'Rock',
+        'p': 'Paper',
+        'sc': 'Scissors',
+        'l': 'Lizard',
+        'sp': 'Spock'
+    }
+    prompt(f"You chose: {choices_dict.get(player, 'Invalid choice')}; Computer chose: {choices_dict.get(computer, 'Invalid choice')}")
+
 
 def player_wins(player_choice, computer_choice):
     if (
@@ -59,16 +49,17 @@ while True:
     prompt("Choose between: Rock(r), Paper(p), Scissors(sc), Lizard(l), Spock(sp)")
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
     choice = input()
-    display_player_choice(choice)
+ 
     
     while choice not in VALID_CHOICES:
         prompt("That's not a valid choice")
         choice = input()
-        display_player_choice(choice)
+        
 
     computer_choice = random.choice(VALID_CHOICES)
-    display_computer_choice(computer_choice)
 
+    display_choices(choice, computer_choice)
+    
     display_winner(choice, computer_choice)
 
     while True:
