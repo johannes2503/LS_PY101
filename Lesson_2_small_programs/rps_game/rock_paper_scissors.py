@@ -1,5 +1,9 @@
 """
-Rock Paper Scissors Lizard Spock Game"""
+
+Rock Paper Scissors Lizard Spock Game
+
+"""
+
 import random
 
 VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
@@ -8,7 +12,7 @@ VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
 
 def prompt(message):
 
-    """Display messages to user"""
+    """Display messages to player"""
 
     print(f"==> {message}")
 
@@ -18,7 +22,7 @@ def display_winner(player, computer):
 
     if player_wins(player, computer):
         print('You win!')
-    elif player == computer:
+    if player == computer:
         print("It's a tie!")
     else:
         print("Computer wins!")
@@ -34,13 +38,15 @@ def display_choices(player, computer):
         'l': 'Lizard',
         'sp': 'Spock'
     }
-    prompt(f"You chose: {choices_dict.get(player, 'Invalid choice')}; Computer chose: {choices_dict.get(computer, 'Invalid choice')}")
+
+    prompt(f"You chose: {choices_dict.get(player, 'Invalid choice')}; "
+           f"Computer chose: {choices_dict.get(computer, 'Invalid choice')}")
 
 
 def player_wins(player_choice, comp_choice):
 
-    """Determine if player or computer wins"""
-    
+    """Determine if player or computer wins a round"""
+
     if (
         (player_choice == 'r' and comp_choice == 'sc') or
         (player_choice == 'r' and comp_choice == 'l') or
@@ -54,8 +60,7 @@ def player_wins(player_choice, comp_choice):
         (player_choice == 'sp' and comp_choice == 'sc')
     ):
         return True
-    else:
-        return False
+    return False
 
 # Main game loop
 
@@ -71,16 +76,16 @@ while True:
     computer_choice = random.choice(VALID_CHOICES)
 
     display_choices(choice, computer_choice)
-
     display_winner(choice, computer_choice)
+       
+    
+    # while True:
+    #     prompt("Do you want to play again (y/n)?")
+    #     answer = input().lower()
 
-    while True:
-        prompt("Do you want to play again (y/n)?")
-        answer = input().lower()
+    #     if answer.startswith('n') or answer.startswith('y'):
+    #         break
+    #     prompt("That's not a valid choice")
 
-        if answer.startswith('n') or answer.startswith('y'):
-            break
-        prompt("That's not a valid choice")
-
-    if answer[0] == 'n':
-        break
+    # if answer[0] == 'n':
+    #     break
